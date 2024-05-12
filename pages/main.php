@@ -28,7 +28,7 @@
 </head>
 <body>
 
-  <?php include '../components/header.php'; ?>
+  <div id="headerSection"><?php include '../components/header.php'; ?></div>
   
   <div id="loadingMessage" style="display: none;"><img src="../img/loading.gif" width="150px" height="150px"/></div>
 
@@ -48,6 +48,19 @@
         $('#content').show();
         $('#content').html(response);
         $('#loadingMessage').hide();
+      },
+      error: function(xhr, status, error) {
+        console.log("what is this: "+error);
+      }
+    });
+  }
+
+  function updateHeader(){
+    $.ajax({
+      url: '../components/header.php',
+      type: 'GET',
+      success: function(response) {
+        $('#headerSection').html(response);
       },
       error: function(xhr, status, error) {
         console.log("what is this: "+error);

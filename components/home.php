@@ -153,6 +153,7 @@
             type: 'GET',
             success: function(response) {
               $('#content').html(response);
+              updateHeader();
             },
             error: function(xhr, status, error) {
               console.error(error);
