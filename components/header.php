@@ -20,7 +20,7 @@
             while($balanceRow = $balanceResult->fetch_assoc()){
               $balance = $balanceRow['current_load'];
 
-              echo "Php$balance.00";
+              echo "Php$balance";
             }
           ?>
         </h5>
