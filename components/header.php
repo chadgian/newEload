@@ -1,4 +1,4 @@
-<nav class="navbar sticky">
+<nav class="navbar sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand fs-1" href="../pages/main.php" style="color: white;">eLoad</a>
 
