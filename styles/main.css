@@ -78,7 +78,7 @@ body {
   height: 90vh;
 }
 
-#contactList {
+#contactList, #debtContactList {
   border: 1px solid #282746;
   background-color: #B8E9E6;
   border-radius: 10px;
@@ -163,6 +163,7 @@ input[type="radio"]:not(:checked) + label {
   border-radius: 15px;
   color: white;
   margin-top: 1rem;
+  transition: all ease 0.5s;
 }
 
 .view-transactions-dates {
@@ -174,12 +175,13 @@ input[type="radio"]:not(:checked) + label {
   border-radius: 5px;
 }
 
-#prevTransactions {
+#prevTransactions, #upcomingTransactions {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   width: 90%;
+  /* margin-bottom: .5rem; */
 }
 
 .prevTransaction {

@@ -1,7 +1,56 @@
 <section class="view-transaction-section m-3">
   <h3 class="title pb-1">View Transactions</h3>
 
-  <div class="p-1  mb-3" style="width: 100%;">
+  <b class="mb-3">Upcoming Transactions</b>
+
+  <div id="upcomingTransactions">
+    <?php
+      include '../processes/db_connection.php';
+      date_default_timezone_set('Asia/Manila');
+      $today = date('Y-m-d');
+
+      $stmt = $conn->prepare("SELECT * FROM transactions WHERE deadline = ?");
+      $tomorrow = date("Y-m-d", strtotime($today . " +1 day"));
+      $stmt->bind_param("s", $tomorrow);
+
+      if($stmt->execute()){
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0){
+          while ($data = $result->fetch_assoc()){
+            $availID =  $data["avail_id"];
+
+            $stmt1 = $conn->prepare("SELECT * FROM avails WHERE avail_id = ?");
+            $stmt1->bind_param("s", $availID);
+            if($stmt1->execute()){
+              $result1 = $stmt1->get_result();
+              $data1 = $result1->fetch_assoc();
+
+              $name = $data1['availer_name'];
+              $phoneNumber = $data1['phone_number'];
+              $time = $data1['time_availed'];
+              $dateEnds = $data1['date_ends'];
+
+              echo "
+                <div class='prevTransaction'>
+                  <div><h4 class='text-center'>$name</h4></div>
+                  <div style='display: flex; flex-direction: column; align-items: end;'>
+                    <div><small>$time</small></div>
+                    <div style='text-align: end;'><small>Until ".date('F d', strtotime($dateEnds))."</small></div>
+                  </div>
+                </div>";
+            } else {
+              echo $stmt1->error;
+            }
+
+          }
+        }
+      } else {
+          echo $stmt->error;
+      }
+  ?>
+  </div>
+
+  <div class="p-1  my-3" style="width: 100%;">
     <div style="width: 100%;">
       <select name="dates" id="dates" class="view-transactions-dates" onChange="changeDate()">
         <?php 

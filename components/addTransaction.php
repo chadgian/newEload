@@ -78,8 +78,22 @@
 
 <script>
   var adding = false;
+
+  function btnAppearance(appearance){
+    const addBtn = document.getElementById("addTransactionBtn");
+    
+    if(appearance == "show"){
+      addBtn.style.transform = "scale(0)";
+      addBtn.style.display = "none";
+    } else {
+      addBtn.style.transform = "scale(1)";
+      addBtn.style.display = "block";
+    }
+  }
+
   async function addTransaction(){
     if (adding == false) {
+      btnAppearance("hide");
       const btn = document.getElementById("addTransactionBtn");
       btn.disabled = true;
       btn.style.filer = "grayscale(100%";
@@ -149,6 +163,7 @@
         const addTransStatus = await fetchAddTrans.text();
 
         if (addTransStatus == "done"){
+          btnAppearance("show");
           $('#content').hide();
           $('#loadingMessage').show();
           $.ajax({
@@ -165,10 +180,12 @@
           });
           adding = false;
         } else {
+          btnAppearance("show");
           alert(addTransStatus);
           adding = false;
         }
       } catch (error) {
+        btnAppearance("show");
         alert("js error: "+error);
       }
     }
